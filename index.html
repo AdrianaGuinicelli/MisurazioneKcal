@@ -961,43 +961,52 @@
       document.getElementById('profileGoal').textContent = Math.round(p.goal_kcal || p.maintenance_kcal || 0);
     }
 
-    async function handleFoodSearch() {
-      clearTimeout(foodSearchTimer);
-      foodSearchTimer = setTimeout(async () => {
-        const query = document.getElementById('foodName').value.trim();
-        const box = document.getElementById('foodSuggestions');
+async function handleFoodSearch(inputId, boxId) {
+  clearTimeout(foodSearchTimer);
+  foodSearchTimer = setTimeout(async () => {
+    const query = document.getElementById(inputId).value.trim();
+    const box = document.getElementById(boxId);
 
-        if (!query) {
-          box.classList.remove('show');
-          box.innerHTML = '';
-          return;
-        }
-
-        try {
-          const res = await apiRequest('searchFoods', { query });
-          const foods = res.data?.foods || [];
-
-          if (!foods.length) {
-            box.innerHTML = '';
-            box.classList.remove('show');
-            return;
-          }
-
-          box.innerHTML = foods.map(food => `
-            <div class="suggestion-item" onclick="selectFood('${escapeQuotes(food.name)}')">
-              <strong>${food.name}</strong><br>
-              <span class="small-text">
-                ${Math.round(food.kcal_100g)} kcal/100g · P ${food.protein_100g} · C ${food.carbs_100g} · G ${food.fat_100g}
-              </span>
-            </div>
-          `).join('');
-
-          box.classList.add('show');
-        } catch (e) {
-          box.classList.remove('show');
-        }
-      }, 250);
+    if (!query) {
+      box.classList.remove('show');
+      box.innerHTML = '';
+      return;
     }
+
+    try {
+      const res = await apiRequest('searchFoods', { query });
+      const foods = res.data?.foods || [];
+
+      if (!foods.length) {
+        box.innerHTML = '';
+        box.classList.remove('show');
+        return;
+      }
+
+      box.innerHTML = foods.map(food => `
+        <div class="suggestion-item" data-name="${encodeURIComponent(food.name)}">
+          <strong>${htmlEscape(food.name)}</strong><br>
+          <span class="small-text">
+            ${Math.round(food.kcal_100g)} kcal/100g · P ${food.protein_100g} · C ${food.carbs_100g} · G ${food.fat_100g}
+          </span>
+        </div>
+      `).join('');
+
+      Array.from(box.querySelectorAll('.suggestion-item')).forEach(el => {
+        el.addEventListener('click', function () {
+          const foodName = decodeURIComponent(this.dataset.name);
+          document.getElementById(inputId).value = foodName;
+          box.innerHTML = '';
+          box.classList.remove('show');
+        });
+      });
+
+      box.classList.add('show');
+    } catch (e) {
+      box.classList.remove('show');
+    }
+  }, 250);
+}
 
     function escapeQuotes(text) {
       return String(text).replace(/'/g, "\\'");
