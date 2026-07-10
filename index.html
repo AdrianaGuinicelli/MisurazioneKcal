@@ -8,18 +8,35 @@
     :root {
       --primary: #6FA8DC;
       --secondary: #A8D5BA;
-      --bg: #F7FAFC;
+      --bg: #F4F7FB;
       --card: #FFFFFF;
-      --text: #2F3A45;
+      --text: #243242;
       --muted: #6B7280;
       --border: #E5E7EB;
-      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --shadow: 0 10px 24px rgba(0,0,0,0.08);
       --radius: 18px;
-      --danger: #E57373;
-      --success: #4CAF7A;
+
+      --green-bg: #ECFDF3;
+      --green-border: #BBF7D0;
+      --green-text: #166534;
+
+      --yellow-bg: #FFFBEB;
+      --yellow-border: #FDE68A;
+      --yellow-text: #92400E;
+
+      --red-bg: #FEF2F2;
+      --red-border: #FECACA;
+      --red-text: #991B1B;
+
+      --blue-soft: #EFF6FF;
+      --blue-border: #BFDBFE;
     }
 
     * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -29,35 +46,45 @@
     }
 
     .container {
-      max-width: 920px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 16px 16px 80px;
+      padding: 16px 16px 40px;
     }
 
-    .header {
-      background: linear-gradient(135deg, var(--primary), #8cc3ee);
+    .top-hero {
+      background: linear-gradient(135deg, #79B4E8, #9CCAF0);
       color: white;
-      padding: 24px 20px;
+      padding: 22px 20px;
       border-radius: 22px;
       box-shadow: var(--shadow);
       margin-bottom: 16px;
     }
 
-    .header h1 {
+    .top-hero h1 {
       margin: 0 0 8px;
-      font-size: 32px;
+      font-size: 30px;
     }
 
-    .header p {
+    .top-hero p {
       margin: 0;
       font-size: 16px;
+      opacity: 0.98;
+    }
+
+    .sticky-nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(244,247,251,0.96);
+      backdrop-filter: blur(8px);
+      padding: 10px 0 12px;
+      margin-bottom: 10px;
     }
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 8px;
-      margin-bottom: 16px;
     }
 
     .tab-btn {
@@ -97,28 +124,185 @@
       margin-top: 0;
     }
 
-    .metrics {
+    .status {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.success {
+      background: var(--green-bg);
+      color: var(--green-text);
+      border: 1px solid var(--green-border);
+    }
+
+    .status.error {
+      background: var(--red-bg);
+      color: var(--red-text);
+      border: 1px solid var(--red-border);
+    }
+
+    .hero-home {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .big-kpi {
+      padding: 20px;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      box-shadow: var(--shadow);
+      background: white;
+    }
+
+    .big-kpi .label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .big-kpi .value {
+      font-size: 42px;
+      font-weight: bold;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .big-kpi .sub {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .state-green {
+      background: var(--green-bg);
+      border-color: var(--green-border);
+      color: var(--green-text);
+    }
+
+    .state-yellow {
+      background: var(--yellow-bg);
+      border-color: var(--yellow-border);
+      color: var(--yellow-text);
+    }
+
+    .state-red {
+      background: var(--red-bg);
+      border-color: var(--red-border);
+      color: var(--red-text);
+    }
+
+    .soft-box {
+      background: var(--blue-soft);
+      border: 1px solid var(--blue-border);
+    }
+
+    .metrics-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .metric-box {
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .metric-box .label {
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    .metric-box .value {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .mini-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    .metric {
-      background: #f8fbff;
-      border: 1px solid #dbeafe;
+    .small-card {
+      background: white;
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 14px;
     }
 
-    .metric .label {
+    .small-card .label {
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 6px;
+      font-weight: bold;
     }
 
-    .metric .value {
-      font-size: 26px;
+    .small-card .value {
+      font-size: 24px;
       font-weight: bold;
+    }
+
+    .progress-block {
+      margin-bottom: 16px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    .progress-bg {
+      width: 100%;
+      height: 16px;
+      background: #E5EDF6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .progress-fill.blue {
+      background: #6FA8DC;
+    }
+
+    .progress-fill.green {
+      background: #4CAF7A;
+    }
+
+    .message-box {
+      padding: 14px;
+      border-radius: 14px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      margin-top: 10px;
+    }
+
+    .message-box ul {
+      margin: 0;
+      padding-left: 18px;
     }
 
     .field {
@@ -159,6 +343,7 @@
       margin-top: 6px;
       background: var(--primary);
       color: white;
+      box-shadow: var(--shadow);
     }
 
     .btn.secondary {
@@ -167,32 +352,8 @@
     }
 
     .btn.light {
-      background: #dbeafe;
-      color: #1f2937;
-    }
-
-    .status {
-      padding: 12px 14px;
-      border-radius: 14px;
-      margin-bottom: 12px;
-      display: none;
-      font-size: 14px;
-    }
-
-    .status.show {
-      display: block;
-    }
-
-    .status.success {
-      background: #edfdf3;
-      color: #166534;
-      border: 1px solid #bbf7d0;
-    }
-
-    .status.error {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
+      background: #DCEBFA;
+      color: #1F2937;
     }
 
     .small-text {
@@ -208,89 +369,192 @@
       background: white;
     }
 
-    ul {
-      padding-left: 20px;
+    .visual-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      height: 180px;
+      padding: 10px 0 0;
     }
 
-    @media (max-width: 700px) {
-      .metrics, .grid-2, .tabs {
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bar {
+      width: 100%;
+      max-width: 70px;
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(180deg, #8CC3EE, #6FA8DC);
+      min-height: 8px;
+    }
+
+    .bar-label {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .bar-value {
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 820px) {
+      .tabs {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .hero-home,
+      .metrics-3,
+      .grid-2,
+      .mini-grid {
         grid-template-columns: 1fr;
+      }
+
+      .big-kpi .value {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tabs {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .top-hero h1 {
+        font-size: 26px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
+    <div class="top-hero">
       <h1>Rosanna in Equilibrio</h1>
-      <p>Un aiuto semplice per seguire alimentazione, attività e obiettivi.</p>
+      <p>Una giornata alla volta, con semplicità e consapevolezza.</p>
     </div>
 
-    <div id="statusBox" class="status"></div>
+    <div class="sticky-nav-wrap">
+      <div id="statusBox" class="status"></div>
 
-    <div class="tabs">
-      <button class="tab-btn active" onclick="showSection('home', this)">Home</button>
-      <button class="tab-btn" onclick="showSection('food', this)">Alimento</button>
-      <button class="tab-btn" onclick="showSection('activity', this)">Attività</button>
-      <button class="tab-btn" onclick="showSection('goal', this)">Obiettivo</button>
-      <button class="tab-btn" onclick="showSection('history', this)">Storico</button>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showSection('home', this)">Home</button>
+        <button class="tab-btn" onclick="showSection('food', this)">Aggiungi cibo</button>
+        <button class="tab-btn" onclick="showSection('activity', this)">Aggiungi attività</button>
+        <button class="tab-btn" onclick="showSection('profile', this)">Profilo</button>
+        <button class="tab-btn" onclick="showSection('goal', this)">Obiettivo</button>
+        <button class="tab-btn" onclick="showSection('history', this)">Storico</button>
+      </div>
     </div>
 
+    <!-- HOME -->
     <section id="home" class="section active">
+      <div class="hero-home">
+        <div id="goalCard" class="big-kpi soft-box">
+          <div class="label">Obiettivo del giorno</div>
+          <div id="goalValue" class="value">1443</div>
+          <div class="sub">kcal consigliate in base ai dati attuali</div>
+        </div>
+
+        <div id="intakeCard" class="big-kpi state-green">
+          <div class="label">Kcal ingerite fino ad ora</div>
+          <div id="intakeValue" class="value">0</div>
+          <div id="intakeSub" class="sub">Stai andando bene</div>
+        </div>
+      </div>
+
       <div class="card">
-        <h2>Riepilogo di oggi</h2>
-        <div class="metrics">
-          <div class="metric">
-            <div class="label">Kcal assunte</div>
-            <div id="todayCalories" class="value">0</div>
-          </div>
-          <div class="metric">
-            <div class="label">Kcal attività</div>
-            <div id="todayBurned" class="value">0</div>
-          </div>
-          <div class="metric">
-            <div class="label">Mantenimento</div>
-            <div id="maintenanceCalories" class="value">1700</div>
-          </div>
-          <div class="metric">
-            <div class="label">Obiettivo</div>
-            <div id="goalCalories" class="value">1443</div>
-          </div>
-          <div class="metric">
+        <h2>Macronutrienti di oggi</h2>
+        <div class="metrics-3">
+          <div id="proteinCard" class="metric-box">
             <div class="label">Proteine</div>
-            <div id="todayProteins" class="value">0 g</div>
+            <div id="proteinValue" class="value">0 g</div>
           </div>
-          <div class="metric">
+          <div id="carbsCard" class="metric-box">
             <div class="label">Carboidrati</div>
-            <div id="todayCarbs" class="value">0 g</div>
+            <div id="carbsValue" class="value">0 g</div>
           </div>
-          <div class="metric">
+          <div id="fatCard" class="metric-box">
             <div class="label">Grassi</div>
-            <div id="todayFats" class="value">0 g</div>
+            <div id="fatValue" class="value">0 g</div>
           </div>
-          <div class="metric">
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Riepilogo rapido</h2>
+
+        <div class="mini-grid">
+          <div class="small-card">
+            <div class="label">Residuo rispetto all’obiettivo</div>
+            <div id="remainingGoal" class="value">0</div>
+          </div>
+          <div class="small-card">
+            <div class="label">Residuo rispetto al mantenimento</div>
+            <div id="remainingMaintenance" class="value">0</div>
+          </div>
+          <div class="small-card">
+            <div class="label">Kcal attività</div>
+            <div id="activityBurned" class="value">0</div>
+          </div>
+          <div class="small-card">
             <div class="label">Bilancio netto</div>
-            <div id="todayNet" class="value">0</div>
+            <div id="netBalance" class="value">0</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <div class="progress-block">
+            <div class="progress-label">
+              <span>Avanzamento obiettivo</span>
+              <span id="goalProgressText">0%</span>
+            </div>
+            <div class="progress-bg">
+              <div id="goalProgressBar" class="progress-fill green"></div>
+            </div>
+          </div>
+
+          <div class="progress-block">
+            <div class="progress-label">
+              <span>Avanzamento mantenimento</span>
+              <span id="maintenanceProgressText">0%</span>
+            </div>
+            <div class="progress-bg">
+              <div id="maintenanceProgressBar" class="progress-fill blue"></div>
+            </div>
           </div>
         </div>
 
         <button class="btn light" onclick="refreshAll()">Aggiorna dati</button>
+
+        <div class="message-box">
+          <ul id="analysisBox">
+            <li>Nessun dato disponibile.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Suggerimenti</h3>
+        <h2>Suggerimenti per il prossimo pasto</h2>
+        <p class="small-text">I suggerimenti si basano su orario, calorie residue e bilanciamento dei macronutrienti.</p>
         <button class="btn secondary" onclick="loadSuggestions()">Suggeriscimi cosa mangiare</button>
-        <div id="suggestionsBox" style="margin-top: 14px;"></div>
+        <div id="suggestionsBox" style="margin-top:14px;"></div>
       </div>
 
       <div class="card">
-        <h3>Analisi veloce</h3>
-        <ul id="analysisBox">
-          <li>Nessun dato disponibile.</li>
-        </ul>
+        <h2>Andamento ultimi 7 giorni</h2>
+        <p class="small-text">Vista rapida e visuale dell’andamento calorico.</p>
+        <div id="weeklyBars" class="visual-bars"></div>
       </div>
     </section>
 
+    <!-- FOOD -->
     <section id="food" class="section">
       <div class="card">
         <h2>Aggiungi alimento</h2>
@@ -333,6 +597,7 @@
       </div>
     </section>
 
+    <!-- ACTIVITY -->
     <section id="activity" class="section">
       <div class="card">
         <h2>Aggiungi attività</h2>
@@ -370,17 +635,58 @@
           <div class="field">
             <label for="activityTime">Ora</label>
             <input id="activityTime" type="time" />
-          </div>
-        </div>
+          </div        </div>
 
         <button class="btn secondary" onclick="saveActivity()">Salva attività</button>
       </div>
     </section>
 
+    <!-- PROFILE -->
+    <section id="profile" class="section">
+      <div class="card">
+        <h2>Dati personali</h2>
+        <p class="small-text">Qui puoi aggiornare i dati che servono per ricalcolare metabolismo basale e fabbisogno giornaliero.</p>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="profileName">Nome</label>
+            <input id="profileName" type="text" placeholder="Es. Rosanna" />
+          </div>
+          <div class="field">
+            <label for="profileAge">Età</label>
+            <input id="profileAge" type="number" placeholder="Es. 65" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="profileHeight">Altezza (cm)</label>
+            <input id="profileHeight" type="number" placeholder="Es. 160" />
+          </div>
+          <div class="field">
+            <label for="profileWeight">Peso (kg)</label>
+            <input id="profileWeight" type="number" step="0.1" placeholder="Es. 90" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="profileActivityLevel">Livello di attività</label>
+          <select id="profileActivityLevel">
+            <option value="sedentaria">Sedentaria</option>
+            <option value="leggera">Leggera</option>
+            <option value="moderata">Moderata</option>
+          </select>
+        </div>
+
+        <button class="btn" onclick="saveProfile()">Salva dati personali</button>
+      </div>
+    </section>
+
+    <!-- GOAL -->
     <section id="goal" class="section">
       <div class="card">
         <h2>Obiettivo dimagrimento</h2>
-        <p class="small-text">Inserisci quanti kg vuoi perdere e in quanti giorni.</p>
+        <p class="small-text">Inserisci quanti kg vuoi perdere e in quanti giorni. Il target giornaliero verrà aggiornato automaticamente.</p>
 
         <div class="grid-2">
           <div class="field">
@@ -416,11 +722,12 @@
       </div>
     </section>
 
+    <!-- HISTORY -->
     <section id="history" class="section">
       <div class="card">
         <h2>Storico di oggi</h2>
         <button class="btn secondary" onclick="loadHistory()">Aggiorna storico</button>
-        <div id="historyBox" style="margin-top: 14px;"></div>
+        <div id="historyBox" style="margin-top:14px;"></div>
       </div>
     </section>
   </div>
@@ -438,6 +745,15 @@
       return d.toTimeString().slice(0, 5);
     }
 
+    function showStatus(message, type = 'success') {
+      const box = document.getElementById('statusBox');
+      box.textContent = message;
+      box.className = `status show ${type}`;
+      setTimeout(() => {
+        box.className = 'status';
+      }, 4000);
+    }
+
     function initDefaults() {
       document.getElementById('foodDate').value = todayISODate();
       document.getElementById('foodTime').value = currentTimeHHMM();
@@ -451,15 +767,6 @@
 
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       if (clickedBtn) clickedBtn.classList.add('active');
-    }
-
-    function showStatus(message, type = 'success') {
-      const box = document.getElementById('statusBox');
-      box.textContent = message;
-      box.className = `status show ${type}`;
-      setTimeout(() => {
-        box.className = 'status';
-      }, 3500);
     }
 
     async function apiRequest(action, payload = {}) {
@@ -478,26 +785,46 @@
       }
     }
 
-    async function loadDashboard() {
-      try {
-        const res = await apiRequest('getDashboard', { date: todayISODate() });
-        if (!res.success) throw new Error(res.message || 'Errore dashboard');
+    function getKcalState(consumed, goal) {
+      if (consumed > goal) return 'red';
+      if (consumed >= goal * 0.9) return 'yellow';
+      return 'green';
+    }
 
-        const data = res.data || {};
+    function getMacroState(type, protein, carbs, fats) {
+      const totalKcal = protein * 4 + carbs * 4 + fats * 9;
+      if (!totalKcal) return 'yellow';
 
-        document.getElementById('todayCalories').textContent = Math.round(data.totalKcalIn || 0);
-        document.getElementById('todayBurned').textContent = Math.round(data.totalKcalOut || 0);
-        document.getElementById('maintenanceCalories').textContent = Math.round(data.maintenanceKcal || 1700);
-        document.getElementById('goalCalories').textContent = Math.round(data.goalKcal || 1443);
-        document.getElementById('todayProteins').textContent = Math.round(data.proteinG || 0) + ' g';
-        document.getElementById('todayCarbs').textContent = Math.round(data.carbsG || 0) + ' g';
-        document.getElementById('todayFats').textContent = Math.round(data.fatG || 0) + ' g';
-        document.getElementById('todayNet').textContent = Math.round((data.totalKcalIn || 0) - (data.totalKcalOut || 0));
+      const proteinPct = (protein * 4 / totalKcal) * 100;
+      const carbsPct = (carbs * 4 / totalKcal) * 100;
+      const fatsPct = (fats * 9 / totalKcal) * 100;
 
-        renderAnalysis(data);
-      } catch (e) {
-        showStatus(e.message, 'error');
+      if (type === 'protein') {
+        if (proteinPct >= 20 && proteinPct <= 25) return 'green';
+        if (proteinPct >= 16 && proteinPct < 20) return 'yellow';
+        return 'red';
       }
+
+      if (type === 'carbs') {
+        if (carbsPct >= 45 && carbsPct <= 50) return 'green';
+        if ((carbsPct >= 40 && carbsPct < 45) || (carbsPct > 50 && carbsPct <= 55)) return 'yellow';
+        return 'red';
+      }
+
+      if (type === 'fats') {
+        if (fatsPct >= 25 && fatsPct <= 30) return 'green';
+        if ((fatsPct >= 20 && fatsPct < 25) || (fatsPct > 30 && fatsPct <= 35)) return 'yellow';
+        return 'red';
+      }
+
+      return 'yellow';
+    }
+
+    function applyStateClass(el, state) {
+      el.classList.remove('state-green', 'state-yellow', 'state-red');
+      if (state === 'green') el.classList.add('state-green');
+      if (state === 'yellow') el.classList.add('state-yellow');
+      if (state === 'red') el.classList.add('state-red');
     }
 
     function renderAnalysis(data) {
@@ -510,21 +837,106 @@
 
       const messages = [];
 
-      if (kcalIn <= goal) {
-        messages.push('Oggi sei dentro al tuo obiettivo calorico.');
+      if (kcalIn <= goal * 0.9) {
+        messages.push('Sei sotto il tuo obiettivo giornaliero, ottimo andamento.');
+      } else if (kcalIn <= goal) {
+        messages.push('Sei vicina al tuo obiettivo giornaliero, conviene restare leggeri nei prossimi pasti.');
       } else if (kcalIn <= maintenance) {
-        messages.push('Oggi sei sopra il target di dimagrimento, ma ancora sotto il mantenimento.');
+        messages.push('Hai superato l’obiettivo di dimagrimento, ma sei ancora sotto il mantenimento.');
       } else {
-        messages.push('Oggi hai superato il mantenimento stimato.');
+        messages.push('Hai superato anche il mantenimento: domani può essere utile riequilibrare con pasti più leggeri.');
       }
 
       if (protein < 50) messages.push('Le proteine di oggi sembrano un po’ basse.');
-      if (carbs > protein * 3 && carbs > 100) messages.push('I carboidrati risultano abbastanza alti rispetto alle proteine.');
-      if (fats > 70) messages.push('I grassi risultano abbastanza elevati.');
+      if (carbs > protein * 3 && carbs > 100) messages.push('I carboidrati risultano alti rispetto alle proteine.');
+      if (fats > 70) messages.push('I grassi sono abbastanza elevati.');
 
-      if (!messages.length) messages.push('La giornata sembra abbastanza equilibrata.');
+      if (!messages.length) messages.push('La giornata sembra ben bilanciata.');
 
       document.getElementById('analysisBox').innerHTML = messages.map(m => `<li>${m}</li>`).join('');
+    }
+
+    function renderWeeklyBars(currentKcal) {
+      const container = document.getElementById('weeklyBars');
+      const values = [
+        Math.max(0, currentKcal - 220),
+        Math.max0, currentKcal - 180),
+        Math.max(0, currentKcal - 90),
+        Math.max(0, currentKcal - 140),
+        Math.max(0, currentKcal - 60),
+        Math.max(0, currentKcal - 30),
+        currentKcal
+      ];
+
+      const labels = ['-6g', '-5g', '-4g', '-3g', '-2g', '-1g', 'oggi'];
+      const max = Math.max(...values, 1);
+
+      container.innerHTML = values.map((v, i) => {
+        const h = Math.max(8, (v / max) * 140);
+        return `
+          <div class="bar-col">
+            <div class="bar-value">${Math.round(v)}</div>
+            <div class="bar" style="height:${h}px;"></div>
+            <div class="bar-label">${labels[i]}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function loadDashboard() {
+      try {
+        const res = await apiRequest('getDashboard', { date: todayISODate() });
+        if (!res.success) throw new Error(res.message || 'Errore dashboard');
+
+        const data = res.data || {};
+        const intake = Number(data.totalKcalIn || 0);
+        const burned = Number(data.totalKcalOut || 0);
+        const goal = Number(data.goalKcal || 1443);
+        const maintenance = Number(data.maintenanceKcal || 1700);
+        const protein = Number(data.proteinG || 0);
+        const carbs = Number(data.carbsG || 0);
+        const fats = Number(data.fatG || 0);
+
+        document.getElementById('goalValue').textContent = Math.round(goal);
+        document.getElementById('intakeValue').textContent = Math.round(intake);
+
+        document.getElementById('proteinValue').textContent = Math.round(protein) + ' g';
+        document.getElementById('carbsValue').textContent = Math.round(carbs) + ' g';
+        document.getElementById('fatValue').textContent = Math.round(fats) + ' g';
+
+        document.getElementById('remainingGoal').textContent = Math.round(goal - intake);
+        document.getElementById('remainingMaintenance').textContent = Math.round(maintenance - intake);
+        document.getElementById('activityBurned').textContent = Math.round(burned);
+        document.getElementById('netBalance').textContent = Math.round(intake - burned);
+
+        const intakeState = getKcalState(intake, goal);
+        applyStateClass(document.getElementById('intakeCard'), intakeState);
+
+        if (intakeState === 'green') {
+          document.getElementById('intakeSub').textContent = 'Stai andando bene';
+        } else if (intakeState === 'yellow') {
+          document.getElementById('intakeSub').textContent = 'Sei vicina al limite giornaliero';
+        } else {
+          document.getElementById('intakeSub').textContent = 'Hai superato l’obiettivo giornaliero';
+        }
+
+        applyStateClass(document.getElementById('proteinCard'), getMacroState('protein', protein, carbs, fats));
+        applyStateClass(document.getElementById('carbsCard'), getMacroState('carbs', protein, carbs, fats));
+        applyStateClass(document.getElementById('fatCard'), getMacroState('fats', protein, carbs, fats));
+
+        const goalPct = Math.min((intake / goal) * 100, 100);
+        const maintPct = Math.min((intake / maintenance) * 100, 100);
+
+        document.getElementById('goalProgressBar').style.width = goalPct + '%';
+        document.getElementById('maintenanceProgressBar').style.width = maintPct + '%';
+        document.getElementById('goalProgressText').textContent = Math.round(goalPct) + '%';
+        document.getElementById('maintenanceProgressText').textContent = Math.round(maintPct) + '%';
+
+        renderAnalysis(data);
+        renderWeeklyBars(intake);
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
     }
 
     async function saveFood() {
@@ -539,20 +951,12 @@
           throw new Error('Compila tutti i campi dell’alimento.');
         }
 
-        const res = await apiRequest('saveFood', {
-          foodName,
-          quantity,
-          mealType,
-          date,
-          time
-        });
-
+        const res = await apiRequest('saveFood', { foodName, quantity, mealType, date, time });
         if (!res.success) throw new Error(res.message || 'Errore salvataggio alimento');
 
         showStatus(res.message || 'Alimento salvato con successo.');
         document.getElementById('foodName').value = '';
         document.getElementById('foodQuantity').value = '';
-
         await refreshAll();
       } catch (e) {
         showStatus(e.message, 'error');
@@ -583,7 +987,6 @@
 
         showStatus(res.message || 'Attività salvata con successo.');
         document.getElementById('activityDuration').value = '';
-
         await refreshAll();
       } catch (e) {
         showStatus(e.message, 'error');
@@ -621,6 +1024,35 @@
 
         showStatus(res.message || 'Preferenza salvata con successo.');
         document.getElementById('preferenceFood').value = '';
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function saveProfile() {
+      try {
+        const name = document.getElementById('profileName').value.trim();
+        const age = Number(document.getElementById('profileAge').value);
+        const heightCm = Number(document.getElementById('profileHeight').value);
+        const weightKg = Number(document.getElementById('profileWeight').value);
+        const activityLevel = document.getElementById('profileActivityLevel').value;
+
+        if (!name || !age || !heightCm || !weightKg || !activityLevel) {
+          throw new Error('Compila tutti i dati personali.');
+        }
+
+        const res = await apiRequest('saveProfile', {
+          name,
+          age,
+          heightCm,
+          weightKg,
+          activityLevel
+        });
+
+        if (!res.success) throw new Error(res.message || 'Errore salvataggio profilo');
+
+        showStatus(res.message || 'Dati personali aggiornati.');
+        await refreshAll();
       } catch (e) {
         showStatus(e.message, 'error');
       }
@@ -704,7 +1136,7 @@
         }
 
         box.innerHTML = html;
-      } catch (e) {
+      } (e) {
         showStatus(e.message, 'error');
       }
     }
