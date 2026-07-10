@@ -266,7 +266,6 @@
       transition: width 0.35s ease;
     }
 
-    .progress-fill.blue { background: #6FA8DC; }
     .progress-fill.green { background: #4CAF7A; }
 
     .message-box {
@@ -387,7 +386,8 @@
       display: flex;
       align-items: flex-end;
       gap: 12px;
-      height: 220px      padding: 12px 0 0;
+      height: 220px;
+      padding: 12px 0 0;
     }
 
     .bar-col {
@@ -485,26 +485,6 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 12px;
-    }
-
-    .pill {
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      font-size: 14px;
-      border: 1px solid var(--border);
-    }
-
-    .pill.like {
-      background: var(--green-bg);
-      color: var(--green-text);
-      border-color: var(--green-border);
-    }
-
-    .pill.dislike {
-      background: var(--red-bg);
-      color: var(--red-text);
-      border-color: var(--red-border);
     }
 
     @media (max-width: 920px) {
@@ -987,7 +967,7 @@
         const query = document.getElementById('foodName').value.trim();
         const box = document.getElementById('foodSuggestions');
 
-        if (!query || query.length < 1) {
+        if (!query) {
           box.classList.remove('show');
           box.innerHTML = '';
           return;
@@ -1429,7 +1409,7 @@
           throw new Error('Compila tutti i dati personali.');
         }
 
-        const res = await apiRequest('saveProfile {
+        const res = await apiRequest('saveProfile', {
           name,
           age,
           heightCm,
