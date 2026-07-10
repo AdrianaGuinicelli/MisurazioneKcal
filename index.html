@@ -778,7 +778,7 @@
 
     <section id="goal" class="section">
       <div class="card">
-        <h2>Obiettivo dimagrimento</h2>
+<h2>Obiettivo dimagrimento</h2>
 <div class="field">
   <label for="goalMode">Tipo obiettivo</label>
   <select id="goalMode" onchange="toggleGoalFields()">
@@ -786,9 +786,10 @@
     <option value="dimagrire">Dimagrire</option>
   </select>
 </div>
-        <p class="small-text">Inserisci quanti kg vuoi perdere e in quanti giorni. Il target giornaliero verrà aggiornato automaticamente.</p>
 
-     <div id="goalDetailsBox">
+<p class="small-text">Se scegli dimagrire, inserisci quanti kg vuoi perdere e in quanti giorni.</p>
+
+<div id="goalDetailsBox">
   <div class="grid-2">
     <div class="field">
       <label for="goalKg">Kg da perdere</label>
@@ -935,6 +936,8 @@ function toggleGoalFields() {
   const mode = document.getElementById('goalMode').value;
   document.getElementById('goalDetailsBox').style.display = mode === 'dimagrire' ? 'block' : 'none';
 }
+
+
     async function apiRequest(action, payload = {}) {
       const response = await fetch(API_BASE, {
         method: 'POST',
@@ -1086,13 +1089,13 @@ document.addEventListener('click', function (e) {
       return 'green';
     }
 
-    function getMacroState(type, protein, carbs, fats) {
-      const totalKcal = protein * 4 + carbs * 4 + fats * 9;
-      if (!totalKcal) return 'yellow';
+function getMacroState(type, protein, carbs, fats) {
+  const totalKcal = protein * 4 + carbs * 4 + fats * 9;
+  if (!totalKcal) return 'yellow';
 
-      const proteinPct = (protein * 4 / totalKcal) * 100;
-      const carbsPct = (carbs * 4 / totalKcal) * 100;
-      const fatsPct = (fats * 9 / totalKcal) * 100;
+  const proteinPct = (protein * 4 / totalKcal) * 100;
+  const carbsPct = (carbs * 4 / totalKcal) * 100;
+  const fatsPct = (fats * 9 / totalKcal) * 100;
 
       if (type === 'protein') {
         if (proteinPct >= 20 && proteinPct <= 25) return 'green';
@@ -1208,7 +1211,7 @@ document.addEventListener('click', function (e) {
       applyStateClass(document.getElementById('carbsCard'), getMacroState('carbs', protein, carbs, fats));
       applyStateClass(document.getElementById('fatCard'), getMacroState('fats', protein, carbs, fats));
 
-      const goalPct = Math.min((intake / goal) * 100, 100);
+      const goalPct = Math.min(((intake - burned) / goal) * 100, 100);
       document.getElementById('goalProgressBar').style.width = goalPct + '%';
       document.getElementById('goalProgressText').textContent = Math.round(goalPct) + '%';
 
@@ -1417,6 +1420,8 @@ async function saveGoal() {
 
         showStatus(res.message || 'Preferenza salvata con successo.');
         document.getElementById('preferenceFood').value = '';
+document.getElementById('preferenceSuggestions').classList.remove('show');
+document.getElementById('preferenceSuggestions').innerHTML = '';
         await loadPreferencesList();
       } catch (e) {
         showStatus(e.message, 'error');
