@@ -3,29 +3,463 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Test Rosanna</title>
+  <title>Rosanna in Equilibrio</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f7fafc; }
-    button { padding: 12px 16px; margin: 8px 0; border: none; border-radius: 10px; cursor: pointer; background: #6FA8DC; color: white; }
-    pre { background: white; padding: 16px; border-radius: 12px; border: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; }
+    :root {
+      --primary: #6FA8DC;
+      --secondary: #A8D5BA;
+      --bg: #F7FAFC;
+      --card: #FFFFFF;
+      --text: #2F3A45;
+      --muted: #6B7280;
+      --border: #E5E7EB;
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --radius: 18px;
+      --danger: #E57373;
+      --success: #4CAF7A;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 16px 16px 80px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary), #8cc3ee);
+      color: white;
+      padding: 24px 20px;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .header p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: white;
+      color: var(--text);
+      padding: 14px 10px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: bold;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: var(--secondary);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .card h2, .card h3 {
+      margin-top: 0;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .metric {
+      background: #f8fbff;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .metric .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .metric .value {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 16px;
+      background: white;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      padding: 15px 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 6px;
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn.secondary {
+      background: var(--secondary);
+      color: var(--text);
+    }
+
+    .btn.light {
+      background: #dbeafe;
+      color: #1f2937;
+    }
+
+    .status {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.success {
+      background: #edfdf3;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.error {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    .small-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .history-item, .suggestion {
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      background: white;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .metrics, .grid-2, .tabs {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Test collegamento Rosanna</h1>
+  <div class="container">
+    <div class="header">
+      <h1>Rosanna in Equilibrio</h1>
+      <p>Un aiuto semplice per seguire alimentazione, attività e obiettivi.</p>
+    </div>
 
-  <button onclick="testPing()">Test Ping</button>
-  <button onclick="testDashboard()">Test Dashboard Oggi</button>
-  <button onclick="testHistory()">Test History Oggi</button>
+    <div id="statusBox" class="status"></div>
 
-  <h2>Risultato</h2>
-  <pre id="output">Nessun test eseguito.</pre>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showSection('home', this)">Home</button>
+      <button class="tab-btn" onclick="showSection('food', this)">Alimento</button>
+      <button class="tab-btn" onclick="showSection('activity', this)">Attività</button>
+      <button class="tab-btn" onclick="showSection('goal', this)">Obiettivo</button>
+      <button class="tab-btn" onclick="showSection('history', this)">Storico</button>
+    </div>
+
+    <section id="home" class="section active">
+      <div class="card">
+        <h2>Riepilogo di oggi</h2>
+        <div class="metrics">
+          <div class="metric">
+            <div class="label">Kcal assunte</div>
+            <div id="todayCalories" class="value">0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Kcal attività</div>
+            <div id="todayBurned" class="value">0</div>
+          </div>
+          <div class="metric">
+            <div class="label">Mantenimento</div>
+            <div id="maintenanceCalories" class="value">1700</div>
+          </div>
+          <div class="metric">
+            <div class="label">Obiettivo</div>
+            <div id="goalCalories" class="value">1443</div>
+          </div>
+          <div class="metric">
+            <div class="label">Proteine</div>
+            <div id="todayProteins" class="value">0 g</div>
+          </div>
+          <div class="metric">
+            <div class="label">Carboidrati</div>
+            <div id="todayCarbs" class="value">0 g</div>
+          </div>
+          <div class="metric">
+            <div class="label">Grassi</div>
+            <div id="todayFats" class="value">0 g</div>
+          </div>
+          <div class="metric">
+            <div class="label">Bilancio netto</div>
+            <div id="todayNet" class="value">0</div>
+          </div>
+        </div>
+
+        <button class="btn light" onclick="refreshAll()">Aggiorna dati</button>
+      </div>
+
+      <div class="card">
+        <h3>Suggerimenti</h3>
+        <button class="btn secondary" onclick="loadSuggestions()">Suggeriscimi cosa mangiare</button>
+        <div id="suggestionsBox" style="margin-top: 14px;"></div>
+      </div>
+
+      <div class="card">
+        <h3>Analisi veloce</h3>
+        <ul id="analysisBox">
+          <li>Nessun dato disponibile.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="food" class="section">
+      <div class="card">
+        <h2>Aggiungi alimento</h2>
+
+        <div class="field">
+          <label for="foodName">Alimento</label>
+          <input id="foodName" type="text" placeholder="Es. mela" />
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="foodQuantity">Quantità (g)</label>
+            <input id="foodQuantity" type="number" placeholder="Es. 150" />
+          </div>
+          <div class="field">
+            <label for="mealType">Pasto</label>
+            <select id="mealType">
+              <option value="colazione">Colazione</option>
+              <option value="spuntino_mattutino">Spuntino mattutino</option>
+              <option value="pranzo">Pranzo</option>
+              <option value="spuntino_pomeridiano">Spuntino pomeridiano</option>
+              <option value="cena">Cena</option>
+              <option value="extra">Extra</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="foodDate">Data</label>
+            <input id="foodDate" type="date" />
+          </div>
+          <div class="field">
+            <label for="foodTime">Ora</label>
+            <input id="foodTime" type="time" />
+          </div>
+        </div>
+
+        <button class="btn" onclick="saveFood()">Salva alimento</button>
+      </div>
+    </section>
+
+    <section id="activity" class="section">
+      <div class="card">
+        <h2>Aggiungi attività</h2>
+
+        <div class="field">
+          <label for="activityType">Attività</label>
+          <select id="activityType">
+            <option value="camminata_lenta">Camminata lenta</option>
+            <option value="camminata_moderata">Camminata moderata</option>
+            <option value="camminata_sostenuta">Camminata sostenuta</option>
+            <option value="ginnastica_leggera">Ginnastica leggera</option>
+          </select>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="activityDuration">Durata (minuti)</label>
+            <input id="activityDuration" type="number" placeholder="Es. 20" />
+          </div>
+          <div class="field">
+            <label for="activityIntensity">Intensità</label>
+            <select id="activityIntensity">
+              <option value="lieve">Lieve</option>
+              <option value="moderata">Moderata</option>
+              <option value="sostenuta">Sostenuta</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="activityDate">Data</label>
+            <input id="activityDate" type="date" />
+          </div>
+          <div class="field">
+            <label for="activityTime">Ora</label>
+            <input id="activityTime" type="time" />
+          </div>
+        </div>
+
+        <button class="btn secondary" onclick="saveActivity()">Salva attività</button>
+      </div>
+    </section>
+
+    <section id="goal" class="section">
+      <div class="card">
+        <h2>Obiettivo dimagrimento</h2>
+        <p class="small-text">Inserisci quanti kg vuoi perdere e in quanti giorni.</p>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="goalKg">Kg da perdere</label>
+            <input id="goalKg" type="number" step="0.1" placeholder="Es. 3" />
+          </div>
+          <div class="field">
+            <label for="goalDays">Entro quanti giorni</label>
+            <input id="goalDays" type="number" placeholder="Es. 90" />
+          </div>
+        </div>
+
+        <button class="btn" onclick="saveGoal()">Salva obiettivo</button>
+      </div>
+
+      <div class="card">
+        <h2>Preferenze alimentari</h2>
+
+        <div class="field">
+          <label for="preferenceFood">Alimento</label>
+          <input id="preferenceFood" type="text" placeholder="Es. yogurt, cavolfiore..." />
+        </div>
+
+        <div class="field">
+          <label for="preferenceType">Tipo preferenza</label>
+          <select id="preferenceType">
+            <option value="preferito">Preferito</option>
+            <option value="non_gradito">Non gradito</option>
+          </select>
+        </div>
+
+        <button class="btn secondary" onclick="savePreference()">Salva preferenza</button>
+      </div>
+    </section>
+
+    <section id="history" class="section">
+      <div class="card">
+        <h2>Storico di oggi</h2>
+        <button class="btn secondary" onclick="loadHistory()">Aggiorna storico</button>
+        <div id="historyBox" style="margin-top: 14px;"></div>
+      </div>
+    </section>
+  </div>
 
   <script>
-    const API_BASE = "https://script.google.com/macros/s/AKfycbyiqVtl1YMnG5yJb5T2JVGH9gKMl82FtKJa5X7uHOGe4-geyAxB79302nzMePnFN27aWw/exec";
+    const API_BASE = "INCOLLA_QUI_URL";
 
     function todayISODate() {
       const d = new Date();
       return d.toISOString().split('T')[0];
+    }
+
+    function currentTimeHHMM() {
+      const d = new Date();
+      return d.toTimeString().slice(0, 5);
+    }
+
+    function initDefaults() {
+      document.getElementById('foodDate').value = todayISODate();
+      document.getElementById('foodTime').value = currentTimeHHMM();
+      document.getElementById('activityDate').value = todayISODate();
+      document.getElementById('activityTime').value = currentTimeHHMM();
+    }
+
+    function showSection(sectionId, clickedBtn = null) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(sectionId).classList.add('active');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      if (clickedBtn) clickedBtn.classList.add('active');
+    }
+
+    function showStatus(message, type = 'success') {
+      const box = document.getElementById('statusBox');
+      box.textContent = message;
+      box.className = `status show ${type}`;
+      setTimeout(() => {
+        box.className = 'status';
+      }, 3500);
     }
 
     async function apiRequest(action, payload = {}) {
@@ -40,40 +474,250 @@
       try {
         return JSON.parse(text);
       } catch (e) {
-        throw new Error("Risposta non JSON: " + text);
+        throw new Error('Risposta server non valida: ' + text);
       }
     }
 
-    function print(data) {
-      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-    }
-
-    async function testPing() {
-      try {
-        const res = await apiRequest('ping', {});
-        print(res);
-      } catch (e) {
-        print({ error: e.message });
-      }
-    }
-
-    async function testDashboard() {
+    async function loadDashboard() {
       try {
         const res = await apiRequest('getDashboard', { date: todayISODate() });
-        print(res);
+        if (!res.success) throw new Error(res.message || 'Errore dashboard');
+
+        const data = res.data || {};
+
+        document.getElementById('todayCalories').textContent = Math.round(data.totalKcalIn || 0);
+        document.getElementById('todayBurned').textContent = Math.round(data.totalKcalOut || 0);
+        document.getElementById('maintenanceCalories').textContent = Math.round(data.maintenanceKcal || 1700);
+        document.getElementById('goalCalories').textContent = Math.round(data.goalKcal || 1443);
+        document.getElementById('todayProteins').textContent = Math.round(data.proteinG || 0) + ' g';
+        document.getElementById('todayCarbs').textContent = Math.round(data.carbsG || 0) + ' g';
+        document.getElementById('todayFats').textContent = Math.round(data.fatG || 0) + ' g';
+        document.getElementById('todayNet').textContent = Math.round((data.totalKcalIn || 0) - (data.totalKcalOut || 0));
+
+        renderAnalysis(data);
       } catch (e) {
-        print({ error: e.message });
+        showStatus(e.message, 'error');
       }
     }
 
-    async function testHistory() {
+    function renderAnalysis(data) {
+      const kcalIn = Number(data.totalKcalIn || 0);
+      const maintenance = Number(data.maintenanceKcal || 1700);
+      const goal = Number(data.goalKcal || 1443);
+      const protein = Number(data.proteinG || 0);
+      const carbs = Number(data.carbsG || 0);
+      const fats = Number(data.fatG || 0);
+
+      const messages = [];
+
+      if (kcalIn <= goal) {
+        messages.push('Oggi sei dentro al tuo obiettivo calorico.');
+      } else if (kcalIn <= maintenance) {
+        messages.push('Oggi sei sopra il target di dimagrimento, ma ancora sotto il mantenimento.');
+      } else {
+        messages.push('Oggi hai superato il mantenimento stimato.');
+      }
+
+      if (protein < 50) messages.push('Le proteine di oggi sembrano un po’ basse.');
+      if (carbs > protein * 3 && carbs > 100) messages.push('I carboidrati risultano abbastanza alti rispetto alle proteine.');
+      if (fats > 70) messages.push('I grassi risultano abbastanza elevati.');
+
+      if (!messages.length) messages.push('La giornata sembra abbastanza equilibrata.');
+
+      document.getElementById('analysisBox').innerHTML = messages.map(m => `<li>${m}</li>`).join('');
+    }
+
+    async function saveFood() {
       try {
-        const res = await apiRequest('getHistory', { date: todayISODate() });
-        print(res);
+        const foodName = document.getElementById('foodName').value.trim();
+        const quantity = Number(document.getElementById('foodQuantity').value);
+        const mealType = document.getElementById('mealType').value;
+        const date = document.getElementById('foodDate').value;
+        const time = document.getElementById('foodTime').value;
+
+        if (!foodName || !quantity || !date || !time) {
+          throw new Error('Compila tutti i campi dell’alimento.');
+        }
+
+        const res = await apiRequest('saveFood', {
+          foodName,
+          quantity,
+          mealType,
+          date,
+          time
+        });
+
+        if (!res.success) throw new Error(res.message || 'Errore salvataggio alimento');
+
+        showStatus(res.message || 'Alimento salvato con successo.');
+        document.getElementById('foodName').value = '';
+        document.getElementById('foodQuantity').value = '';
+
+        await refreshAll();
       } catch (e) {
-        print({ error: e.message });
+        showStatus(e.message, 'error');
       }
     }
+
+    async function saveActivity() {
+      try {
+        const activityType = document.getElementById('activityType').value;
+        const durationMinutes = Number(document.getElementById('activityDuration').value);
+        const intensity = document.getElementById('activityIntensity').value;
+        const date = document.getElementById('activityDate').value;
+        const time = document.getElementById('activityTime').value;
+
+        if (!activityType || !durationMinutes || !date || !time) {
+          throw new Error('Compila tutti i campi dell’attività.');
+        }
+
+        const res = await apiRequest('saveActivity', {
+          activityType,
+          durationMinutes,
+          intensity,
+          date,
+          time
+        });
+
+        if (!res.success) throw new Error(res.message || 'Errore salvataggio attività');
+
+        showStatus(res.message || 'Attività salvata con successo.');
+        document.getElementById('activityDuration').value = '';
+
+        await refreshAll();
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function saveGoal() {
+      try {
+        const kgToLose = Number(document.getElementById('goalKg').value);
+        const days = Number(document.getElementById('goalDays').value);
+
+        if (!kgToLose || !days) {
+          throw new Error('Inserisci kg da perdere e numero di giorni.');
+        }
+
+        const res = await apiRequest('saveGoal', { kgToLose, days });
+        if (!res.success) throw new Error(res.message || 'Errore salvataggio obiettivo');
+
+        showStatus(res.message || 'Obiettivo salvato con successo.');
+        await refreshAll();
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function savePreference() {
+      try {
+        const foodName = document.getElementById('preferenceFood').value.trim();
+        const preferenceType = document.getElementById('preferenceType').value;
+
+        if (!foodName) throw new Error('Inserisci un alimento.');
+
+        const res = await apiRequest('savePreference', { foodName, preferenceType });
+        if (!res.success) throw new Error(res.message || 'Errore salvataggio preferenza');
+
+        showStatus(res.message || 'Preferenza salvata con successo.');
+        document.getElementById('preferenceFood').value = '';
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function loadSuggestions() {
+      try {
+        const box = document.getElementById('suggestionsBox');
+        box.innerHTML = '<p class="small-text">Sto preparando i suggerimenti...</p>';
+
+        const res = await apiRequest('getSuggestions', {
+          date: todayISODate(),
+          time: currentTimeHHMM()
+        });
+
+        if (!res.success) throw new Error(res.message || 'Errore suggerimenti');
+
+        const suggestions = res.data?.suggestions || [];
+
+        if (!suggestions.length) {
+          box.innerHTML = '<p class="small-text">Nessun suggerimento disponibile.</p>';
+          return;
+        }
+
+        box.innerHTML = suggestions.map(item => `
+          <div class="suggestion">
+            <strong>${item.title || 'Suggerimento'}</strong><br>
+            ${item.description || ''}<br>
+            <span class="small-text">
+              ${item.kcal ? `Kcal stimate: ${item.kcal}` : ''}
+              ${item.macros ? ` · Macro: ${item.macros}` : ''}
+            </span>
+          </div>
+        `).join('');
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function loadHistory() {
+      try {
+        const box = document.getElementById('historyBox');
+        box.innerHTML = '<p class="small-text">Carico lo storico...</p>';
+
+        const res = await apiRequest('getHistory', { date: todayISODate() });
+        if (!res.success) throw new Error(res.message || 'Errore storico');
+
+        const foodLogs = res.data?.foodLogs || [];
+        const activityLogs = res.data?.activityLogs || [];
+
+        if (!foodLogs.length && !activityLogs.length) {
+          box.innerHTML = '<p class="small-text">Nessun inserimento per oggi.</p>';
+          return;
+        }
+
+        let html = '';
+
+        if (foodLogs.length) {
+          html += '<h3>Alimenti</h3>';
+          html += foodLogs.map(item => `
+            <div class="history-item">
+              <strong>${item.time || ''} - ${item.foodName || ''}</strong><br>
+              Quantità: ${item.quantity || 0} g<br>
+              Kcal: ${Math.round(item.kcal || 0)}<br>
+              Macro: P ${Math.round(item.protein || 0)}g · C ${Math.round(item.carbs || 0)}g · G ${Math.round(item.fat || 0)}g<br>
+              Pasto: ${item.mealType || '-'}
+            </div>
+          `).join('');
+        }
+
+        if (activityLogs.length) {
+          html += '<h3>Attività</h3>';
+          html += activityLogs.map(item => `
+            <div class="history-item">
+              <strong>${item.time || ''} - ${item.activityType || ''}</strong><br>
+              Durata: ${item.durationMinutes || 0} minuti<br>
+              Intensità: ${item.intensity || '-'}<br>
+              Kcal consumate: ${Math.round(item.kcalBurned || 0)}
+            </div>
+          `).join('');
+        }
+
+        box.innerHTML = html;
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function refreshAll() {
+      await loadDashboard();
+      await loadHistory();
+    }
+
+    window.addEventListener('load', async () => {
+      initDefaults();
+      await refreshAll();
+    });
   </script>
 </body>
 </html>
