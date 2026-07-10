@@ -15,28 +15,21 @@
       --border: #E5E7EB;
       --shadow: 0 10px 24px rgba(0,0,0,0.08);
       --radius: 18px;
-
       --green-bg: #ECFDF3;
       --green-border: #BBF7D0;
       --green-text: #166534;
-
       --yellow-bg: #FFFBEB;
       --yellow-border: #FDE68A;
       --yellow-text: #92400E;
-
       --red-bg: #FEF2F2;
       --red-border: #FECACA;
       --red-text: #991B1B;
-
       --blue-soft: #EFF6FF;
       --blue-border: #BFDBFE;
     }
 
     * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -46,9 +39,9 @@
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 16px 16px 40px;
+      padding: 16px 16px 48px;
     }
 
     .top-hero {
@@ -83,7 +76,7 @@
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       gap: 8px;
     }
 
@@ -103,13 +96,8 @@
       background: var(--secondary);
     }
 
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
+    .section { display: none; }
+    .section.active { display: block; }
 
     .card {
       background: var(--card);
@@ -120,9 +108,7 @@
       margin-bottom: 16px;
     }
 
-    .card h2, .card h3 {
-      margin-top: 0;
-    }
+    .card h2, .card h3 { margin-top: 0; }
 
     .status {
       padding: 12px 14px;
@@ -132,9 +118,7 @@
       font-size: 14px;
     }
 
-    .status.show {
-      display: block;
-    }
+    .status.show { display: block; }
 
     .status.success {
       background: var(--green-bg);
@@ -182,6 +166,11 @@
       color: var(--muted);
     }
 
+    .soft-box {
+      background: var(--blue-soft);
+      border-color: var(--blue-border);
+    }
+
     .state-green {
       background: var(--green-bg);
       border-color: var(--green-border);
@@ -198,11 +187,6 @@
       background: var(--red-bg);
       border-color: var(--red-border);
       color: var(--red-text);
-    }
-
-    .soft-box {
-      background: var(--blue-soft);
-      border: 1px solid var(--blue-border);
     }
 
     .metrics-3 {
@@ -255,9 +239,7 @@
       font-weight: bold;
     }
 
-    .progress-block {
-      margin-bottom: 16px;
-    }
+    .progress-block { margin-bottom: 16px; }
 
     .progress-label {
       display: flex;
@@ -284,13 +266,8 @@
       transition: width 0.35s ease;
     }
 
-    .progress-fill.blue {
-      background: #6FA8DC;
-    }
-
-    .progress-fill.green {
-      background: #4CAF7A;
-    }
+    .progress-fill.blue { background: #6FA8DC; }
+    .progress-fill.green { background: #4CAF7A; }
 
     .message-box {
       padding: 14px;
@@ -305,9 +282,7 @@
       padding-left: 18px;
     }
 
-    .field {
-      margin-bottom: 12px;
-    }
+    .field { margin-bottom: 12px; position: relative; }
 
     .field label {
       display: block;
@@ -356,6 +331,23 @@
       color: #1F2937;
     }
 
+    .quick-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .quick-btn {
+      border: none;
+      background: #EEF6FD;
+      color: #244;
+      padding: 12px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .small-text {
       font-size: 13px;
       color: var(--muted);
@@ -369,12 +361,33 @@
       background: white;
     }
 
+    .history-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mini-action {
+      border: none;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #eef2f7;
+      color: #243242;
+    }
+
+    .mini-action.delete {
+      background: #FEF2F2;
+      color: #991B1B;
+    }
+
     .visual-bars {
       display: flex;
       align-items: flex-end;
       gap: 12px;
-      height: 180px;
-      padding: 10px 0 0;
+      height: 220px      padding: 12px 0 0;
     }
 
     .bar-col {
@@ -388,10 +401,14 @@
 
     .bar {
       width: 100%;
-      max-width: 70px;
-      border-radius: 12px 12px 0 0;
+      max-width: 72px;
+      border-radius: 14px 14px 0 0;
       background: linear-gradient(180deg, #8CC3EE, #6FA8DC);
       min-height: 8px;
+    }
+
+    .bar.month-bar {
+      background: linear-gradient(180deg, #A78BFA, #8B5CF6);
     }
 
     .bar-label {
@@ -405,15 +422,102 @@
       font-weight: bold;
     }
 
-    @media (max-width: 820px) {
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stats-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .stats-box .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    .stats-box .value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .suggestions-list {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 20;
+      display: none;
+    }
+
+    .suggestions-list.show {
+      display: block;
+    }
+
+    .suggestion-item {
+      padding: 12px;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+    }
+
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+
+    .suggestion-item:hover {
+      background: #F8FAFC;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      font-size: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .pill.like {
+      background: var(--green-bg);
+      color: var(--green-text);
+      border-color: var(--green-border);
+    }
+
+    .pill.dislike {
+      background: var(--red-bg);
+      color: var(--red-text);
+      border-color: var(--red-border);
+    }
+
+    @media (max-width: 920px) {
       .tabs {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
       }
 
       .hero-home,
       .metrics-3,
       .grid-2,
-      .mini-grid {
+      .mini-grid,
+      .stats-grid,
+      .quick-row {
         grid-template-columns: 1fr;
       }
 
@@ -450,16 +554,16 @@
         <button class="tab-btn" onclick="showSection('profile', this)">Profilo</button>
         <button class="tab-btn" onclick="showSection('goal', this)">Obiettivo</button>
         <button class="tab-btn" onclick="showSection('history', this)">Storico</button>
+        <button class="tab-btn" onclick="showSection('analysis', this)">Analisi</button>
       </div>
     </div>
 
-    <!-- HOME -->
     <section id="home" class="section active">
       <div class="hero-home">
         <div id="goalCard" class="big-kpi soft-box">
           <div class="label">Obiettivo del giorno</div>
           <div id="goalValue" class="value">1443</div>
-          <div class="sub">kcal consigliate in base ai dati attuali</div>
+          <div class="sub">Se non c’è dimagrimento impostato, coincide con il mantenimento</div>
         </div>
 
         <div id="intakeCard" class="big-kpi state-green">
@@ -489,15 +593,10 @@
 
       <div class="card">
         <h2>Riepilogo rapido</h2>
-
         <div class="mini-grid">
           <div class="small-card">
             <div class="label">Residuo rispetto all’obiettivo</div>
             <div id="remainingGoal" class="value">0</div>
-          </div>
-          <div class="small-card">
-            <div class="label">Residuo rispetto al mantenimento</div>
-            <div id="remainingMaintenance" class="value">0</div>
           </div>
           <div class="small-card">
             <div class="label">Kcal attività</div>
@@ -506,6 +605,10 @@
           <div class="small-card">
             <div class="label">Bilancio netto</div>
             <div id="netBalance" class="value">0</div>
+          </div>
+          <div class="small-card">
+            <div class="label">Ultimo aggiornamento</div>
+            <div id="lastUpdate" class="value">--:--</div>
           </div>
         </div>
 
@@ -517,16 +620,6 @@
             </div>
             <div class="progress-bg">
               <div id="goalProgressBar" class="progress-fill green"></div>
-            </div>
-          </div>
-
-          <div class="progress-block">
-            <div class="progress-label">
-              <span>Avanzamento mantenimento</span>
-              <span id="maintenanceProgressText">0%</span>
-            </div>
-            <div class="progress-bg">
-              <div id="maintenanceProgressBar" class="progress-fill blue"></div>
             </div>
           </div>
         </div>
@@ -542,26 +635,25 @@
 
       <div class="card">
         <h2>Suggerimenti per il prossimo pasto</h2>
-        <p class="small-text">I suggerimenti si basano su orario, calorie residue e bilanciamento dei macronutrienti.</p>
+        <p class="small-text">I suggerimenti si basano su orario, calorie residue, bilanciamento dei macronutrienti e preferenze.</p>
         <button class="btn secondary" onclick="loadSuggestions()">Suggeriscimi cosa mangiare</button>
         <div id="suggestionsBox" style="margin-top:14px;"></div>
       </div>
-
-      <div class="card">
-        <h2>Andamento ultimi 7 giorni</h2>
-        <p class="small-text">Vista rapida e visuale dell’andamento calorico.</p>
-        <div id="weeklyBars" class="visual-bars"></div>
-      </div>
     </section>
 
-    <!-- FOOD -->
     <section id="food" class="section">
       <div class="card">
         <h2>Aggiungi alimento</h2>
 
         <div class="field">
           <label for="foodName">Alimento</label>
-          <input id="foodName" type="text" placeholder="Es. mela" />
+          <input id="foodName" type="text" placeholder="Es. mela" autocomplete="off" oninput="handleFoodSearch()" />
+          <div id="foodSuggestions" class="suggestions-list"></div>
+        </div>
+
+        <div class="card" style="padding:14px; margin-top:0;">
+          <h3 style="margin-top:0;">Alimenti recenti</h3>
+          <div id="recentFoodsBox" class="pill-list"></div>
         </div>
 
         <div class="grid-2">
@@ -597,12 +689,18 @@
       </div>
     </section>
 
-    <!-- ACTIVITY -->
     <section id="activity" class="section">
       <div class="card">
         <h2>Aggiungi attività</h2>
 
-        <div class="field">
+        <div class="quick-row">
+          <button class="quick-btn" onclick="quickWalk(10, 'lieve')">Camminata 10 min</button>
+          <button class="quick-btn" onclick="quickWalk(20, 'moderata')">Camminata 20 min</button>
+          <button class="quick-btn" onclick="quickWalk(30, 'moderata')">Camminata 30 min</button>
+          <button class="quick-btn" onclick="quickWalk(45, 'sostenuta')">Camminata 45 min</button>
+        </div>
+
+        <div class="field" style="margin-top:14px;">
           <label for="activityType">Attività</label>
           <select id="activityType">
             <option value="camminata_lenta">Camminata lenta</option>
@@ -635,13 +733,13 @@
           <div class="field">
             <label for="activityTime">Ora</label>
             <input id="activityTime" type="time" />
-          </div        </div>
+          </div>
+        </div>
 
         <button class="btn secondary" onclick="saveActivity()">Salva attività</button>
       </div>
     </section>
 
-    <!-- PROFILE -->
     <section id="profile" class="section">
       <div class="card">
         <h2>Dati personali</h2>
@@ -678,11 +776,29 @@
           </select>
         </div>
 
+        <div class="mini-grid" style="margin-top:14px;">
+          <div class="small-card">
+            <div class="label">Metabolismo basale</div>
+            <div id="profileBmr" class="value">0</div>
+          </div>
+          <div class="small-card">
+            <div class="label">Mantenimento</div>
+            <div id="profileMaintenance" class="value">0</div>
+          </div>
+          <div class="small-card">
+            <div class="label">Deficit giornaliero</div>
+            <div id="profileDeficit" class="value">0</div>
+          </div>
+          <div class="small-card">
+            <div class="label">Obiettivo attuale</div>
+            <div id="profileGoal" class="value">0</div>
+          </div>
+        </div>
+
         <button class="btn" onclick="saveProfile()">Salva dati personali</button>
       </div>
     </section>
 
-    <!-- GOAL -->
     <section id="goal" class="section">
       <div class="card">
         <h2>Obiettivo dimagrimento</h2>
@@ -719,10 +835,14 @@
         </div>
 
         <button class="btn secondary" onclick="savePreference()">Salva preferenza</button>
+
+        <div style="margin-top:16px;">
+          <h3>Preferenze salvate</h3>
+          <div id="preferencesListBox"></div>
+        </div>
       </div>
     </section>
 
-    <!-- HISTORY -->
     <section id="history" class="section">
       <div class="card">
         <h2>Storico di oggi</h2>
@@ -730,10 +850,65 @@
         <div id="historyBox" style="margin-top:14px;"></div>
       </div>
     </section>
+
+    <section id="analysis" class="section">
+      <div class="card">
+        <h2>Analisi settimanale</h2>
+        <p class="small-text">Vista reale degli ultimi 7 giorni.</p>
+
+        <div class="stats-grid">
+          <div class="stats-box">
+            <div class="label">Media kcal</div>
+            <div id="weeklyAvgKcal" class="value">0</div>
+          </div>
+          <div class="stats-box">
+            <div class="label">Giorni dentro obiettivo</div>
+            <div id="weeklyGoalDays" class="value">0</div>
+          </div>
+          <div class="stats-box">
+            <div class="label">Kcal attività</div>
+            <div id="weeklyBurned" class="value">0</div>
+          </div>
+          <div class="stats-box">
+            <div class="label">Giorni registrati</div>
+            <div id="weeklyLoggedDays" class="value">0</div>
+          </div>
+        </div>
+
+        <div id="weeklyBars" class="visual-bars"></div>
+      </div>
+
+      <div class="card">
+        <h2>Analisi mensile</h2>
+        <p class="small-text">Vista reale degli ultimi 30 giorni.</p>
+
+        <div class="stats-grid">
+          <div class="stats-box">
+            <div class="label">Media kcal</div>
+            <div id="monthlyAvgKcal" class="value">0</div>
+          </div>
+          <div class="stats-box">
+            <div class="label">Giorni dentro obiettivo</div>
+            <div id="monthlyGoalDays" class="value">0</div>
+          </div>
+          <div class="stats-box">
+            <div class="label">Kcal attività</div>
+            <div id="monthlyBurned" class="value">0</div>
+          </div>
+          <div class="stats-box">
+            <div class="label">Giorni registrati</div>
+            <div id="monthlyLoggedDays" class="value">0</div>
+          </div>
+        </div>
+
+        <div id="monthlyBars" class="visual-bars"></div>
+      </div>
+    </section>
   </div>
 
   <script>
-    const API_BASE = "https://script.google.com/macros/s/AKfycbwcIxMB_RMT3CDymhGhpnhYIUocro_gFA3vUYZ9g5H68-Ti3IImkggjNVm6rHyHc3dGSA/exec";
+    const API_BASE = "https://script.google.com/macros/s/AKfycbxunpBTIuLUjdkGpxg41EiuhjKlTnusnZT3e8P5kOWS0h_zVyVUZMzL7Y81GhZ5McUU/exec";
+    let foodSearchTimer = null;
 
     function todayISODate() {
       const d = new Date();
@@ -785,6 +960,114 @@
       }
     }
 
+    async function loadProfileData() {
+      const res = await apiRequest('getProfileData', {});
+      if (!res.success) throw new Error(res.message || 'Errore caricamento profilo');
+
+      const p = res.data || {};
+
+      document.getElementById('profileName').value = p.name || '';
+      document.getElementById('profileAge').value = p.age || '';
+      document.getElementById('profileHeight').value = p.height_cm || '';
+      document.getElementById('profileWeight').value = p.weight_kg || '';
+      document.getElementById('profileActivityLevel').value = p.activity_level || 'sedentaria';
+
+      document.getElementById('goalKg').value = p.kg_to_lose || '';
+      document.getElementById('goalDays').value = p.goal_days || '';
+
+      document.getElementById('profileBmr').textContent = Math.round(p.bmr || 0);
+      document.getElementById('profileMaintenance').textContent = Math.round(p.maintenance_kcal || 0);
+      document.getElementById('profileDeficit').textContent = Math.round(p.daily_deficit || 0);
+      document.getElementById('profileGoal').textContent = Math.round(p.goal_kcal || p.maintenance_kcal || 0);
+    }
+
+    async function handleFoodSearch() {
+      clearTimeout(foodSearchTimer);
+      foodSearchTimer = setTimeout(async () => {
+        const query = document.getElementById('foodName').value.trim();
+        const box = document.getElementById('foodSuggestions');
+
+        if (!query || query.length < 1) {
+          box.classList.remove('show');
+          box.innerHTML = '';
+          return;
+        }
+
+        try {
+          const res = await apiRequest('searchFoods', { query });
+          const foods = res.data?.foods || [];
+
+          if (!foods.length) {
+            box.innerHTML = '';
+            box.classList.remove('show');
+            return;
+          }
+
+          box.innerHTML = foods.map(food => `
+            <div class="suggestion-item" onclick="selectFood('${escapeQuotes(food.name)}')">
+              <strong>${food.name}</strong><br>
+              <span class="small-text">
+                ${Math.round(food.kcal_100g)} kcal/100g · P ${food.protein_100g} · C ${food.carbs_100g} · G ${food.fat_100g}
+              </span>
+            </div>
+          `).join('');
+
+          box.classList.add('show');
+        } catch (e) {
+          box.classList.remove('show');
+        }
+      }, 250);
+    }
+
+    function escapeQuotes(text) {
+      return String(text).replace(/'/g, "\\'");
+    }
+
+    function selectFood(name) {
+      document.getElementById('foodName').value = name;
+      const box = document.getElementById('foodSuggestions');
+      box.innerHTML = '';
+      box.classList.remove('show');
+    }
+
+    document.addEventListener('click', function (e) {
+      const field = document.getElementById('foodName');
+      const box = document.getElementById('foodSuggestions');
+      if (field && box && !field.contains(e.target) && !box.contains(e.target)) {
+        box.classList.remove('show');
+      }
+    });
+
+    async function loadRecentFoods() {
+      const res = await apiRequest('getRecentFoods', {});
+      if (!res.success) throw new Error(res.message || 'Errore alimenti recenti');
+
+      const recentFoods = res.data?.recentFoods || [];
+      const box = document.getElementById('recentFoodsBox');
+
+      if (!recentFoods.length) {
+        box.innerHTML = '<span class="small-text">Nessun alimento recente.</span>';
+        return;
+      }
+
+      box.innerHTML = recentFoods.map(food => `
+        <button class="quick-btn" onclick="selectRecentFood('${escapeQuotes(food)}')">${food}</button>
+      `).join('');
+    }
+
+    function selectRecentFood(name) {
+      document.getElementById('foodName').value = name;
+    }
+
+    function quickWalk(minutes, intensity) {
+      document.getElementById('activityDuration').value = minutes;
+      document.getElementById('activityIntensity').value = intensity;
+
+      if (intensity === 'lieve') document.getElementById('activityType').value = 'camminata_lenta';
+      if (intensity === 'moderata') document.getElementById('activityType').value = 'camminata_moderata';
+      if (intensity === 'sostenuta') document.getElementById('activityType').value = 'camminata_sostenuta';
+    }
+
     function getKcalState(consumed, goal) {
       if (consumed > goal) return 'red';
       if (consumed >= goal * 0.9) return 'yellow';
@@ -829,7 +1112,6 @@
 
     function renderAnalysis(data) {
       const kcalIn = Number(data.totalKcalIn || 0);
-      const maintenance = Number(data.maintenanceKcal || 1700);
       const goal = Number(data.goalKcal || 1443);
       const protein = Number(data.proteinG || 0);
       const carbs = Number(data.carbsG || 0);
@@ -841,10 +1123,8 @@
         messages.push('Sei sotto il tuo obiettivo giornaliero, ottimo andamento.');
       } else if (kcalIn <= goal) {
         messages.push('Sei vicina al tuo obiettivo giornaliero, conviene restare leggeri nei prossimi pasti.');
-      } else if (kcalIn <= maintenance) {
-        messages.push('Hai superato l’obiettivo di dimagrimento, ma sei ancora sotto il mantenimento.');
       } else {
-        messages.push('Hai superato anche il mantenimento: domani può essere utile riequilibrare con pasti più leggeri.');
+        messages.push('Hai superato l’obiettivo giornaliero: può aiutare alleggerire i prossimi pasti.');
       }
 
       if (protein < 50) messages.push('Le proteine di oggi sembrano un po’ basse.');
@@ -856,87 +1136,151 @@
       document.getElementById('analysisBox').innerHTML = messages.map(m => `<li>${m}</li>`).join('');
     }
 
-    function renderWeeklyBars(currentKcal) {
-      const container = document.getElementById('weeklyBars');
-      const values = [
-        Math.max(0, currentKcal - 220),
-        Math.max0, currentKcal - 180),
-        Math.max(0, currentKcal - 90),
-        Math.max(0, currentKcal - 140),
-        Math.max(0, currentKcal - 60),
-        Math.max(0, currentKcal - 30),
-        currentKcal
-      ];
-
-      const labels = ['-6g', '-5g', '-4g', '-3g', '-2g', '-1g', 'oggi'];
+    function renderBars(containerId, values, labels, month = false) {
+      const container = document.getElementById(containerId);
       const max = Math.max(...values, 1);
 
       container.innerHTML = values.map((v, i) => {
-        const h = Math.max(8, (v / max) * 140);
+        const h = Math.max(8, (v / max) * 160);
         return `
           <div class="bar-col">
             <div class="bar-value">${Math.round(v)}</div>
-            <div class="bar" style="height:${h}px;"></div>
+            <div class="bar ${month ? 'month-bar' : ''}" style="height:${h}px;"></div>
             <div class="bar-label">${labels[i]}</div>
           </div>
         `;
       }).join('');
     }
 
+    function labelFromDate(dateStr) {
+      const d = new Date(dateStr);
+      if (isNaN(d)) return dateStr;
+      return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+    }
+
     async function loadDashboard() {
-      try {
-        const res = await apiRequest('getDashboard', { date: todayISODate() });
-        if (!res.success) throw new Error(res.message || 'Errore dashboard');
+      const res = await apiRequest('getDashboard', { date: todayISODate() });
+      if (!res.success) throw new Error(res.message || 'Errore dashboard');
 
-        const data = res.data || {};
-        const intake = Number(data.totalKcalIn || 0);
-        const burned = Number(data.totalKcalOut || 0);
-        const goal = Number(data.goalKcal || 1443);
-        const maintenance = Number(data.maintenanceKcal || 1700);
-        const protein = Number(data.proteinG || 0);
-        const carbs = Number(data.carbsG || 0);
-        const fats = Number(data.fatG || 0);
+      const data = res.data || {};
+      const intake = Number(data.totalKcalIn || 0);
+      const burned = Number(data.totalKcalOut || 0);
+      const goal = Number(data.goalKcal || 1443);
+      const protein = Number(data.proteinG || 0);
+      const carbs = Number(data.carbsG || 0);
+      const fats = Number(data.fatG || 0);
 
-        document.getElementById('goalValue').textContent = Math.round(goal);
-        document.getElementById('intakeValue').textContent = Math.round(intake);
+      document.getElementById('goalValue').textContent = Math.round(goal);
+      document.getElementById('intakeValue').textContent = Math.round(intake);
 
-        document.getElementById('proteinValue').textContent = Math.round(protein) + ' g';
-        document.getElementById('carbsValue').textContent = Math.round(carbs) + ' g';
-        document.getElementById('fatValue').textContent = Math.round(fats) + ' g';
+      document.getElementById('proteinValue').textContent = Math.round(protein) + ' g';
+      document.getElementById('carbsValue').textContent = Math.round(carbs) + ' g';
+      document.getElementById('fatValue').textContent = Math.round(fats) + ' g';
 
-        document.getElementById('remainingGoal').textContent = Math.round(goal - intake);
-        document.getElementById('remainingMaintenance').textContent = Math.round(maintenance - intake);
-        document.getElementById('activityBurned').textContent = Math.round(burned);
-        document.getElementById('netBalance').textContent = Math.round(intake - burned);
+      document.getElementById('remainingGoal').textContent = Math.round(goal - intake);
+      document.getElementById('activityBurned').textContent = Math.round(burned);
+      document.getElementById('netBalance').textContent = Math.round(intake - burned);
+      document.getElementById('lastUpdate').textContent = currentTimeHHMM();
 
-        const intakeState = getKcalState(intake, goal);
-        applyStateClass(document.getElementById('intakeCard'), intakeState);
+      const intakeState = getKcalState(intake, goal);
+      applyStateClass(document.getElementById('intakeCard'), intakeState);
 
-        if (intakeState === 'green') {
-          document.getElementById('intakeSub').textContent = 'Stai andando bene';
-        } else if (intakeState === 'yellow') {
-          document.getElementById('intakeSub').textContent = 'Sei vicina al limite giornaliero';
-        } else {
-          document.getElementById('intakeSub').textContent = 'Hai superato l’obiettivo giornaliero';
-        }
-
-        applyStateClass(document.getElementById('proteinCard'), getMacroState('protein', protein, carbs, fats));
-        applyStateClass(document.getElementById('carbsCard'), getMacroState('carbs', protein, carbs, fats));
-        applyStateClass(document.getElementById('fatCard'), getMacroState('fats', protein, carbs, fats));
-
-        const goalPct = Math.min((intake / goal) * 100, 100);
-        const maintPct = Math.min((intake / maintenance) * 100, 100);
-
-        document.getElementById('goalProgressBar').style.width = goalPct + '%';
-        document.getElementById('maintenanceProgressBar').style.width = maintPct + '%';
-        document.getElementById('goalProgressText').textContent = Math.round(goalPct) + '%';
-        document.getElementById('maintenanceProgressText').textContent = Math.round(maintPct) + '%';
-
-        renderAnalysis(data);
-        renderWeeklyBars(intake);
-      } catch (e) {
-        showStatus(e.message, 'error');
+      if (intakeState === 'green') {
+        document.getElementById('intakeSub').textContent = 'Stai andando bene';
+      } else if (intakeState === 'yellow') {
+        document.getElementById('intakeSub').textContent = 'Sei vicina al limite giornaliero';
+      } else {
+        document.getElementById('intakeSub').textContent = 'Hai superato l’obiettivo giornaliero';
       }
+
+      applyStateClass(document.getElementById('proteinCard'), getMacroState('protein', protein, carbs, fats));
+      applyStateClass(document.getElementById('carbsCard'), getMacroState('carbs', protein, carbs, fats));
+      applyStateClass(document.getElementById('fatCard'), getMacroState('fats', protein, carbs, fats));
+
+      const goalPct = Math.min((intake / goal) * 100, 100);
+      document.getElementById('goalProgressBar').style.width = goalPct + '%';
+      document.getElementById('goalProgressText').textContent = Math.round(goalPct) + '%';
+
+      renderAnalysis(data);
+    }
+
+    async function loadWeeklyAnalysis() {
+      const res = await apiRequest('getWeeklyAnalysis', { endDate: todayISODate() });
+      if (!res.success) throw new Error(res.message || 'Errore analisi settimanale');
+
+      const data = res.data || {};
+      const days = data.days || [];
+
+      document.getElementById('weeklyAvgKcal').textContent = Math.round(data.avgKcal || 0);
+      document.getElementById('weeklyGoalDays').textContent = Math.round(data.goalDays || 0);
+      document.getElementById('weeklyBurned').textContent = Math.round(data.totalKcalOut || 0);
+      document.getElementById('weeklyLoggedDays').textContent = Math.round(data.loggedDays || 0);
+
+      renderBars(
+        'weeklyBars',
+        days.map(d => Number(d.kcalIn || 0)),
+        days.map(d => labelFromDate(d.date)),
+        false
+      );
+    }
+
+    async function loadMonthlyAnalysis() {
+      const res = await apiRequest('getMonthlyAnalysis', { endDate: todayISODate() });
+      if (!res.success) throw new Error(res.message || 'Errore analisi mensile');
+
+      const data = res.data || {};
+      const days = data.days || [];
+
+      document.getElementById('monthlyAvgKcal').textContent = Math.round(data.avgKcal || 0);
+      document.getElementById('monthlyGoalDays').textContent = Math.round(data.goalDays || 0);
+      document.getElementById('monthlyBurned').textContent = Math.round(data.totalKcalOut || 0);
+      document.getElementById('monthlyLoggedDays').textContent = Math.round(data.loggedDays || 0);
+
+      const sampled = sampleMonthlyDays(days, 6);
+
+      renderBars(
+        'monthlyBars',
+        sampled.map(d => Number(d.kcalIn || 0)),
+        sampled.map(d => labelFromDate(d.date)),
+        true
+      );
+    }
+
+    function sampleMonthlyDays(days, count) {
+      if (!days.length) return [];
+      if (days.length <= count) return days;
+
+      const result = [];
+      const step = (days.length - 1) / (count - 1);
+
+      for (let i = 0; i < count; i++) {
+        const index = Math.round(i * step);
+        result.push(days[index]);
+      }
+
+      return result;
+    }
+
+    async function loadPreferencesList() {
+      const res = await apiRequest('getPreferencesList', {});
+      if (!res.success) throw new Error(res.message || 'Errore caricamento preferenze');
+
+      const prefs = res.data?.preferences || [];
+      const box = document.getElementById('preferencesListBox');
+
+      if (!prefs.length) {
+        box.innerHTML = '<div class="small-text">Nessuna preferenza salvata.</div>';
+        return;
+      }
+
+      box.innerHTML = prefs.map(p => `
+        <div class="history-item">
+          <strong>${p.foodName}</strong> - ${p.preferenceType}
+          <div class="history-actions">
+            <button class="mini-action delete" onclick="deletePreference(${p.rowIndex})">Elimina</button>
+          </div>
+        </div>
+      `).join('');
     }
 
     async function saveFood() {
@@ -957,6 +1301,22 @@
         showStatus(res.message || 'Alimento salvato con successo.');
         document.getElementById('foodName').value = '';
         document.getElementById('foodQuantity').value = '';
+        document.getElementById('foodSuggestions').classList.remove('show');
+        document.getElementById('foodSuggestions').innerHTML = '';
+
+        await refreshAll();
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function deleteFoodLog(rowIndex) {
+      if (!confirm('Vuoi eliminare questo alimento?')) return;
+
+      try {
+        const res = await apiRequest('deleteFoodLog', { rowIndex });
+        if (!res.success) throw new Error(res.message || 'Errore eliminazione alimento');
+        showStatus(res.message || 'Alimento eliminato.');
         await refreshAll();
       } catch (e) {
         showStatus(e.message, 'error');
@@ -993,6 +1353,19 @@
       }
     }
 
+    async function deleteActivityLog(rowIndex) {
+      if (!confirm('Vuoi eliminare questa attività?')) return;
+
+      try {
+        const res = await apiRequest('deleteActivityLog', { rowIndex });
+        if (!res.success) throw new Error(res.message || 'Errore eliminazione attività');
+        showStatus(res.message || 'Attività eliminata.');
+        await refreshAll();
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
     async function saveGoal() {
       try {
         const kgToLose = Number(document.getElementById('goalKg').value);
@@ -1006,6 +1379,7 @@
         if (!res.success) throw new Error(res.message || 'Errore salvataggio obiettivo');
 
         showStatus(res.message || 'Obiettivo salvato con successo.');
+        await loadProfileData();
         await refreshAll();
       } catch (e) {
         showStatus(e.message, 'error');
@@ -1024,6 +1398,20 @@
 
         showStatus(res.message || 'Preferenza salvata con successo.');
         document.getElementById('preferenceFood').value = '';
+        await loadPreferencesList();
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
+    }
+
+    async function deletePreference(rowIndex) {
+      if (!confirm('Vuoi eliminare questa preferenza?')) return;
+
+      try {
+        const res = await apiRequest('deletePreference', { rowIndex });
+        if (!res.success) throw new Error(res.message || 'Errore eliminazione preferenza');
+        showStatus(res.message || 'Preferenza eliminata.');
+        await loadPreferencesList();
       } catch (e) {
         showStatus(e.message, 'error');
       }
@@ -1041,7 +1429,7 @@
           throw new Error('Compila tutti i dati personali.');
         }
 
-        const res = await apiRequest('saveProfile', {
+        const res = await apiRequest('saveProfile {
           name,
           age,
           heightCm,
@@ -1052,6 +1440,7 @@
         if (!res.success) throw new Error(res.message || 'Errore salvataggio profilo');
 
         showStatus(res.message || 'Dati personali aggiornati.');
+        await loadProfileData();
         await refreshAll();
       } catch (e) {
         showStatus(e.message, 'error');
@@ -1119,6 +1508,9 @@
               Kcal: ${Math.round(item.kcal || 0)}<br>
               Macro: P ${Math.round(item.protein || 0)}g · C ${Math.round(item.carbs || 0)}g · G ${Math.round(item.fat || 0)}g<br>
               Pasto: ${item.mealType || '-'}
+              <div class="history-actions">
+                <button class="mini-action delete" onclick="deleteFoodLog(${item.rowIndex})">Elimina</button>
+              </div>
             </div>
           `).join('');
         }
@@ -1131,19 +1523,88 @@
               Durata: ${item.durationMinutes || 0} minuti<br>
               Intensità: ${item.intensity || '-'}<br>
               Kcal consumate: ${Math.round(item.kcalBurned || 0)}
+              <div class="history-actions">
+                <button class="mini-action delete" onclick="deleteActivityLog(${item.rowIndex})">Elimina</button>
+              </div>
             </div>
           `).join('');
         }
 
         box.innerHTML = html;
-      } (e) {
+      } catch (e) {
         showStatus(e.message, 'error');
       }
     }
 
+    async function loadWeeklyAnalysis() {
+      const res = await apiRequest('getWeeklyAnalysis', { endDate: todayISODate() });
+      if (!res.success) throw new Error(res.message || 'Errore analisi settimanale');
+
+      const data = res.data || {};
+      const days = data.days || [];
+
+      document.getElementById('weeklyAvgKcal').textContent = Math.round(data.avgKcal || 0);
+      document.getElementById('weeklyGoalDays').textContent = Math.round(data.goalDays || 0);
+      document.getElementById('weeklyBurned').textContent = Math.round(data.totalKcalOut || 0);
+      document.getElementById('weeklyLoggedDays').textContent = Math.round(data.loggedDays || 0);
+
+      renderBars(
+        'weeklyBars',
+        days.map(d => Number(d.kcalIn || 0)),
+        days.map(d => labelFromDate(d.date)),
+        false
+      );
+    }
+
+    async function loadMonthlyAnalysis() {
+      const res = await apiRequest('getMonthlyAnalysis', { endDate: todayISODate() });
+      if (!res.success) throw new Error(res.message || 'Errore analisi mensile');
+
+      const data = res.data || {};
+      const days = data.days || [];
+
+      document.getElementById('monthlyAvgKcal').textContent = Math.round(data.avgKcal || 0);
+      document.getElementById('monthlyGoalDays').textContent = Math.round(data.goalDays || 0);
+      document.getElementById('monthlyBurned').textContent = Math.round(data.totalKcalOut || 0);
+      document.getElementById('monthlyLoggedDays').textContent = Math.round(data.loggedDays || 0);
+
+      const sampled = sampleMonthlyDays(days, 6);
+
+      renderBars(
+        'monthlyBars',
+        sampled.map(d => Number(d.kcalIn || 0)),
+        sampled.map(d => labelFromDate(d.date)),
+        true
+      );
+    }
+
+    function sampleMonthlyDays(days, count) {
+      if (!days.length) return [];
+      if (days.length <= count) return days;
+
+      const result = [];
+      const step = (days.length - 1) / (count - 1);
+
+      for (let i = 0; i < count; i++) {
+        const index = Math.round(i * step);
+        result.push(days[index]);
+      }
+
+      return result;
+    }
+
     async function refreshAll() {
-      await loadDashboard();
-      await loadHistory();
+      try {
+        await loadProfileData();
+        await loadDashboard();
+        await loadHistory();
+        await loadWeeklyAnalysis();
+        await loadMonthlyAnalysis();
+        await loadPreferencesList();
+        await loadRecentFoods();
+      } catch (e) {
+        showStatus(e.message, 'error');
+      }
     }
 
     window.addEventListener('load', async () => {
