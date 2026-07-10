@@ -1097,26 +1097,26 @@ function getMacroState(type, protein, carbs, fats) {
   const carbsPct = (carbs * 4 / totalKcal) * 100;
   const fatsPct = (fats * 9 / totalKcal) * 100;
 
-      if (type === 'protein') {
-        if (proteinPct >= 20 && proteinPct <= 25) return 'green';
-        if (proteinPct >= 16 && proteinPct < 20) return 'yellow';
-        return 'red';
-      }
+  if (type === 'protein') {
+    if (proteinPct >= 20 && proteinPct <= 25) return 'green';
+    if (proteinPct >= 16 && proteinPct < 20) return 'yellow';
+    return 'red';
+  }
 
-      if (type === 'carbs') {
-        if (carbsPct >= 45 && carbsPct <= 50) return 'green';
-        if ((carbsPct >= 40 && carbsPct < 45) || (carbsPct > 50 && carbsPct <= 55)) return 'yellow';
-        return 'red';
-      }
+  if (type === 'carbs') {
+    if (carbsPct >= 45 && carbsPct <= 50) return 'green';
+    if ((carbsPct >= 40 && carbsPct < 45) || (carbsPct > 50 && carbsPct <= 55)) return 'yellow';
+    return 'red';
+  }
 
-      if (type === 'fats') {
-        if (fatsPct >= 25 && fatsPct <= 30) return 'green';
-        if ((fatsPct >= 20 && fatsPct < 25) || (fatsPct > 30 && fatsPct <= 35)) return 'yellow';
-        return 'red';
-      }
+  if (type === 'fats') {
+    if (fatsPct >= 25 && fatsPct <= 30) return 'green';
+    if ((fatsPct >= 20 && fatsPct < 25) || (fatsPct > 30 && fatsPct <= 35)) return 'yellow';
+    return 'red';
+  }
 
-      return 'yellow';
-    }
+  return 'yellow';
+}
 
     function applyStateClass(el, state) {
       el.classList.remove('state-green', 'state-yellow', 'state-red');
