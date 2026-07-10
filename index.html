@@ -582,10 +582,7 @@
             <div class="label">Kcal attività</div>
             <div id="activityBurned" class="value">0</div>
           </div>
-          <div class="small-card">
-            <div class="label">Bilancio netto</div>
-            <div id="netBalance" class="value">0</div>
-          </div>
+        
           <div class="small-card">
             <div class="label">Ultimo aggiornamento</div>
             <div id="lastUpdate" class="value">--:--</div>
@@ -627,7 +624,7 @@
 
         <div class="field">
           <label for="foodName">Alimento</label>
-          <input id="foodName" type="text" placeholder="Es. mela" autocomplete="off" oninput="handleFoodSearch()" />
+          <input id="foodName" type="text" placeholder="Es. mela" autocomplete="off" oninput="handleFoodSearch('foodName','foodSuggestions')" />
           <div id="foodSuggestions" class="suggestions-list"></div>
         </div>
 
@@ -782,18 +779,27 @@
     <section id="goal" class="section">
       <div class="card">
         <h2>Obiettivo dimagrimento</h2>
+<div class="field">
+  <label for="goalMode">Tipo obiettivo</label>
+  <select id="goalMode" onchange="toggleGoalFields()">
+    <option value="nessuno">Nessuno</option>
+    <option value="dimagrire">Dimagrire</option>
+  </select>
+</div>
         <p class="small-text">Inserisci quanti kg vuoi perdere e in quanti giorni. Il target giornaliero verrà aggiornato automaticamente.</p>
 
-        <div class="grid-2">
-          <div class="field">
-            <label for="goalKg">Kg da perdere</label>
-            <input id="goalKg" type="number" step="0.1" placeholder="Es. 3" />
-          </div>
-          <div class="field">
-            <label for="goalDays">Entro quanti giorni</label>
-            <input id="goalDays" type="number" placeholder="Es. 90" />
-          </div>
-        </div>
+     <div id="goalDetailsBox">
+  <div class="grid-2">
+    <div class="field">
+      <label for="goalKg">Kg da perdere</label>
+      <input id="goalKg" type="number" step="0.1" placeholder="Es. 3" />
+    </div>
+    <div class="field">
+      <label for="goalDays">Entro quanti giorni</label>
+      <input id="goalDays" type="number" placeholder="Es. 90" />
+    </div>
+  </div>
+</div>
 
         <button class="btn" onclick="saveGoal()">Salva obiettivo</button>
       </div>
@@ -802,9 +808,10 @@
         <h2>Preferenze alimentari</h2>
 
         <div class="field">
-          <label for="preferenceFood">Alimento</label>
-          <input id="preferenceFood" type="text" placeholder="Es. yogurt, cavolfiore..." />
-        </div>
+  <label for="preferenceFood">Alimento</label>
+  <input id="preferenceFood" type="text" placeholder="Es. yogurt, cavolfiore..." autocomplete="off" oninput="handleFoodSearch('preferenceFood','preferenceSuggestions')" />
+  <div id="preferenceSuggestions" class="suggestions-list"></div>
+</div>
 
         <div class="field">
           <label for="preferenceType">Tipo preferenza</label>
@@ -924,6 +931,10 @@
       if (clickedBtn) clickedBtn.classList.add('active');
     }
 
+function toggleGoalFields() {
+  const mode = document.getElementById('goalMode').value;
+  document.getElementById('goalDetailsBox').style.display = mode === 'dimagrire' ? 'block' : 'none';
+}
     async function apiRequest(action, payload = {}) {
       const response = await fetch(API_BASE, {
         method: 'POST',
@@ -939,6 +950,14 @@
         throw new Error('Risposta server non valida: ' + text);
       }
     }
+function htmlEscape(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
 
     async function loadProfileData() {
       const res = await apiRequest('getProfileData', {});
@@ -951,9 +970,11 @@
       document.getElementById('profileHeight').value = p.height_cm || '';
       document.getElementById('profileWeight').value = p.weight_kg || '';
       document.getElementById('profileActivityLevel').value = p.activity_level || 'sedentaria';
+document.getElementById('goalMode').value = p.goal_mode || 'nessuno';
 
       document.getElementById('goalKg').value = p.kg_to_lose || '';
       document.getElementById('goalDays').value = p.goal_days || '';
+toggleGoalFields();
 
       document.getElementById('profileBmr').textContent = Math.round(p.bmr || 0);
       document.getElementById('profileMaintenance').textContent = Math.round(p.maintenance_kcal || 0);
@@ -1019,13 +1040,15 @@ async function handleFoodSearch(inputId, boxId) {
       box.classList.remove('show');
     }
 
-    document.addEventListener('click', function (e) {
-      const field = document.getElementById('foodName');
-      const box = document.getElementById('foodSuggestions');
-      if (field && box && !field.contains(e.target) && !box.contains(e.target)) {
-        box.classList.remove('show');
-      }
-    });
+document.addEventListener('click', function (e) {
+  ['foodSuggestions', 'preferenceSuggestions'].forEach(id => {
+    const box = document.getElementById(id);
+    if (!box) return;
+    if (!box.contains(e.target)) {
+      box.classList.remove('show');
+    }
+  });
+});
 
     async function loadRecentFoods() {
       const res = await apiRequest('getRecentFoods', {});
@@ -1166,10 +1189,9 @@ async function handleFoodSearch(inputId, boxId) {
       document.getElementById('carbsValue').textContent = Math.round(carbs) + ' g';
       document.getElementById('fatValue').textContent = Math.round(fats) + ' g';
 
-      document.getElementById('remainingGoal').textContent = Math.round(goal - intake);
+      document.getElementById('remainingGoal').textContent = Math.round((goal - intake) + burned);
       document.getElementById('activityBurned').textContent = Math.round(burned);
-      document.getElementById('netBalance').textContent = Math.round(intake - burned);
-      document.getElementById('lastUpdate').textContent = currentTimeHHMM();
+           document.getElementById('lastUpdate').textContent = currentTimeHHMM();
 
       const intakeState = getKcalState(intake, goal);
       applyStateClass(document.getElementById('intakeCard'), intakeState);
@@ -1355,25 +1377,33 @@ async function handleFoodSearch(inputId, boxId) {
       }
     }
 
-    async function saveGoal() {
-      try {
-        const kgToLose = Number(document.getElementById('goalKg').value);
-        const days = Number(document.getElementById('goalDays').value);
+async function saveGoal() {
+  try {
+    const goalMode = document.getElementById('goalMode').value;
+    let payload = { goalMode };
 
-        if (!kgToLose || !days) {
-          throw new Error('Inserisci kg da perdere e numero di giorni.');
-        }
+    if (goalMode === 'dimagrire') {
+      const kgToLose = Number(document.getElementById('goalKg').value);
+      const days = Number(document.getElementById('goalDays').value);
 
-        const res = await apiRequest('saveGoal', { kgToLose, days });
-        if (!res.success) throw new Error(res.message || 'Errore salvataggio obiettivo');
-
-        showStatus(res.message || 'Obiettivo salvato con successo.');
-        await loadProfileData();
-        await refreshAll();
-      } catch (e) {
-        showStatus(e.message, 'error');
+      if (!kgToLose || !days) {
+        throw new Error('Inserisci kg da perdere e numero di giorni.');
       }
+
+      payload.kgToLose = kgToLose;
+      payload.days = days;
     }
+
+    const res = await apiRequest('saveGoal', payload);
+    if (!res.success) throw new Error(res.message || 'Errore salvataggio obiettivo');
+
+    showStatus(res.message || 'Obiettivo salvato con successo.');
+    await loadProfileData();
+    await refreshAll();
+  } catch (e) {
+    showStatus(e.message, 'error');
+  }
+}
 
     async function savePreference() {
       try {
